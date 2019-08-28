@@ -1,0 +1,27 @@
+.favicon{
+    width:35px;
+    height:35px;
+    animation: logo infinite 2.5s linear;
+    pointer-events: none;
+}
+
+@keyframes logo {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (max-width:850px) {
+    .favicon{ 
+        width: 20px;
+        height: 20px;
+    }
+}
+@media (max-width:900px) {
+    .favicon{
+        width: 20px;
+        height: 20px;
+    }
+}

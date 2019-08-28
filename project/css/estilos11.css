@@ -1,0 +1,110 @@
+@media (min-width: 992px) {
+  .animate {
+    animation-duration: 0.3s;
+    -webkit-animation-duration: 0.3s;
+    animation-fill-mode: both;
+    -webkit-animation-fill-mode: both;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  100% {
+    transform:translateY(0rem);
+    opacity: 1;
+  }
+  0% {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    -webkit-transform: transform;
+    -webkit-opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    -webkit-opacity: 1;
+  }
+  0% {
+    -webkit-transform: translateY(1rem);
+    -webkit-opacity: 0;
+  }
+}
+
+.slideIn {
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+}
+
+body {
+  background: #98d7d5;
+  background: linear-gradient(to right, #0A4237, #1EC6A5);
+}
+.lead text-white-50{
+    
+    color:black; 
+
+}
+.btn-primary{
+    border: 0;
+    opacity: 1;
+}
+#page-content {
+  flex: 0 0 auto;
+}
+
+#sticky-footer {
+  flex-shrink: none;
+}
+footer{
+    position: inherit;
+    object-position: bottom;
+    bottom: 0;
+    width: 100%;
+}
+.small1{
+    position: absolute;
+    left: 10px;
+}
+.small2{
+    position: absolute;
+    right: 10px;
+}
+.wall-container{
+    width: 600px;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+@media (min-width:900px){
+    .menu{
+      padding-left: 0;
+      margin-right: 100%;
+      margin-left: 0;
+      height: 100%;
+    }
+    .col-sm-4{
+      background-color: azure;
+      padding-left: 0;
+      position: fixed;
+      width: 250px;
+      height: 100%;
+    }
+}
+@media (max-width:850px) {
+    .logo{ 
+        width: 85%; height: 30%;
+    }
+}
+@media (max-width:900px) {
+    .logo{
+        width: 85%; height: 30%;
+    }
+    
+}
