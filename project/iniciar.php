@@ -82,7 +82,7 @@
                 }
               ?>
               <button class="completarReg btn btn-lg btn-primary btn-block text-uppercase" name="enviar" type="submit">Iniciar Seccion</button>
-              <p class="d-block text-center mt-2 small">Aun no tienes una cuenta?<a class="d-block text-center mt-2 small" href="Registro.php">Registrate</a></p>
+              <p class="d-block text-center mt-2 small">Aun no tienes una cuenta?<a class="d-block text-center mt-2 small" href="Registro.php">Registrate</a></p><p class="d-block text-center mt-2 small"><a class="d-block text-center mt-2 small" href="recuperar.php?enviarUrl=si">Olvide mi contraseña</a></p>
               <hr class="my-4">
               <button disabled class="btn btn-lg btn-google btn-block text-uppercase" type="submit">Registrar con Google (Desactivado)</button>
               <button disabled class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit">Registrar con Facebook (Desactivado)</button>
