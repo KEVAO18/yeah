@@ -1,3 +1,20 @@
+<?php
+session_start();
+$id = $_GET['id'];
+$wall = 'indexlog.php?id='.$id;
+$profil = 'perfil.php?id='.$id;
+$SalaQ = 'salaQ.php?id='.$id;
+$Reali = 'regexam.php?id='.$id;
+$more = 'more.php?id='.$id;
+$ExamI = 'examIntro.php?id='.$id;
+$exam1 = 'exam1.php?id='.$id;
+$search = 'search.php?id='.$id;
+
+if ($_SESSION['useryey'] == "" || $id == "") {
+    header('location: Error404.php');
+}
+    
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,28 +33,7 @@
   </head>
   <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="indexlog.php"><img class="favicon" src="multimedia/favicon.png">  ¡Yeah English Yeah! - Start</a>
-        <div class="container">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="1" aria-expanded="false">Menú</a>
-                <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="indexlog.php">Mi Muro</a>
-                    <a class="dropdown-item" href="perfil.php">Perfil</a>
-                    <hr>
-                    <a class="dropdown-item" href="salaQ.php">Sala de Quices</a>
-                    <a class="dropdown-item" href="regexam.php">Realizados</a>
-                    <a class="dropdown-item" href="iniciar.php">Cerrar seccion</a>
-                    <a class="dropdown-item" href="more.html">Saber Más</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <a class="navbar-brand" href="<?=$wall?>"><img class="favicon" src="multimedia/favicon.png">  ¡Yeah English Yeah! - Start</a>
       </nav>
       
       <div class="container">
@@ -1146,39 +1142,3 @@
         </footer>
     </body>
 </html>
-
-<?
-$p1 = $_POST['opciones1'];
-$p2 = $_POST['opciones2'];
-$p3 = $_POST['opciones3'];
-$p4 = $_POST['opciones4'];
-$p5 = $_POST['opciones5'];
-$p6 = $_POST['opciones6'];
-$p7 = $_POST['opciones7'];
-$p8 = $_POST['opciones8'];
-$p9 = $_POST['opciones9'];
-$p10 = $_POST['opciones10'];
-$p11 = $_POST['opciones11'];
-$p12 = $_POST['opciones12'];
-$p13 = $_POST['opciones13'];
-$p14 = $_POST['opciones14'];
-$p15 = $_POST['opciones15'];
-$p16 = $_POST['opciones16'];
-$p17 = $_POST['opciones17'];
-$p18 = $_POST['opciones18'];
-$p19 = $_POST['opciones19'];
-$p20 = $_POST['opciones20'];
-$p21 = $_POST['opciones21'];
-$p22 = $_POST['opciones22'];
-$p23 = $_POST['opciones23'];
-$p24 = $_POST['opciones24'];
-$p25 = $_POST['opciones25'];
-
-$suma = $p1+$p2+$p3+$p4+$p5+$p6+$p7+$p8+$p9+$p10+$p11+$p12+$p13+$p14+$p15+$p16+$p17+$p18+$p19+$p20+$p21+$p22+$p23+$p24+$p25;
-
-include ('conexion.php');
-
-$user ="SELECT usuario FROM datos2 WHERE ";
-
-$query="INSERT INTO PUNTOS_DE_USUARIO(id,user,xp,numExam) VALUES('','$user','$suma','')";
-?>

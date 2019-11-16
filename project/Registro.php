@@ -1,3 +1,16 @@
+<?php
+  session_start();
+  $error = "";
+  if(isset($_SESSION['useryey'])){
+    if($_SESSION['useryey'] != ""){
+      $id = md5($_SESSION['useryey']);
+      header('location: indexlog.php?id='.$id);
+    }
+  }
+  if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +59,7 @@
           </div>
           <div class="card-body">
             <h5 class="card-title text-center">Registro</h5>
-            <form class="form-signin" action="Registro.php" method="post" name="registro">
+            <form class="form-signin" action="reg.php" method="post" name="registro" enctype="multipart/form-data">
               <div class="form-label-group">
                 <input type="text" id="inputUserame" class="form-control" name="userInput" placeholder="Username" value="" required autofocus>
                 <label for="inputUserame">Nombre de Usuario</label>
@@ -66,42 +79,32 @@
                 <input type="password" id="inputConfirmPassword" class="form-control contraseña2" name="pass2" placeholder="Password" value="" required>
                 <label for="inputConfirmPassword">Comfirmar Contraseña</label>
               </div>
+              <?php
+                if ($error == "pass") {
+              ?>
+              <div class="alert alert-danger" role="alert">
+                Las contraseñas no son iguales
+              </div>
+              <?php
+                }
+              ?>
               <div>
               <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="customCheck1">
+                <input type="checkbox" class="custom-control-input" id="customCheck1" name="TyC">
                 <label class="custom-control-label" for="customCheck1" required name="cheked">Aceptar Terminos y condiciones</label>
+                <?php
+                  if ($error == "TyC") {
+                ?>
+                    <div class="alert alert-danger" role="alert">
+                      Debe aceptar nuestros Terminos y condiciones
+                    </div>
+                <?php
+                  }
+                ?>
               </div>
               </div>
+
               <button class="completarReg btn btn-lg btn-primary btn-block text-uppercase" name="enviar" type="submit">Completar Registro</button>
-              <?php
-
-	include ("conexion.php");
-
-	if(isset($_REQUEST["enviar"])){
-
-		$user = $_POST['userInput'];
-		$email = $_POST['email'];
-		$pass1 = $_POST['pass1'];
-		$pass2 = $_POST['pass2'];
-       
-			if($pass1==$pass2){
-				$passmd5=md5($pass1);
-				$query="SELECT usuario FORM datos2 WHERE usuario='$user';";
-				$conexion->query($query);
-				if($query->num_rows==0){
-					$query = "INSERT INTO datos2(usuario,email,pass) VALUE('$user','$email','$passmd5');";
-					$conexion->query($query);
-				}else{
-					echo '<div class="alert alert-danger" role="alert">checa tu usuario please!</div>';
-				}
-			}else{
-				echo '<div class="alert alert-danger" role="alert">checa tu contraseña please, tienen que ser iguales!</div>';
-			}
-		}
-	
-	$conexion->close();
-
-?>
               <p class="d-block text-center mt-2 small">Ya tienes una cuenta?<a class="d-block text-center mt-2 small" href="iniciar.php">Iniciar Seccion</a></p>
               <hr class="my-4">
               
@@ -121,3 +124,10 @@
   </footer>
 </body>
 </html>
+
+                    <!--if($query->num_rows==0){
+                          $query = "INSERT INTO datos2(usuario,email,pass) VALUE('$user','$email','$passmd5');";
+                          $conexion->query($query);
+                        }else{
+                          echo '<div class="alert alert-danger" role="alert">checa tu usuario please!</div>';
+                        }-->

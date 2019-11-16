@@ -1,4 +1,20 @@
+<?php
+session_start();
+$id = $_GET['id'];
+$wall = 'indexlog.php?id='.$id;
+$profil = 'perfil.php?id='.$id;
+$SalaQ = 'salaQ.php?id='.$id;
+$Reali = 'regexam.php?id='.$id;
+$more = 'more.php?id='.$id;
+$ExamI = 'examIntro.php?id='.$id;
+$exam1 = 'exam1.php?id='.$id;
+$search = 'search.php?id='.$id;
 
+if ($_SESSION['useryey'] == "" || $id == "") {
+    header('location: Error404.php');
+}
+    
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,7 +33,7 @@
   </head>
   <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="indexlog.php"><img class="favicon" src="multimedia/favicon.png">  ¡Yeah English Yeah! - Wall</a>
+        <a class="navbar-brand" href="<?=$wall?>"><img class="favicon" src="multimedia/favicon.png">  ¡Yeah English Yeah! - Wall</a>
         <div class="container">
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,16 +43,20 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menú</a>
                 <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="indexlog.php">Mi Muro</a>
-                    <a class="dropdown-item" href="perfil.php">Perfil</a>
+                  <a class="dropdown-item" href="<?=$wall?>">Mi Muro</a>
+                    <a class="dropdown-item" href="<?=$profil?>"><?php echo $_SESSION['useryey'];?></a>
                     <hr>
-                    <a class="dropdown-item" href="salaQ.php">Sala de Quices</a>
-                    <a class="dropdown-item" href="regexam.php" >Realizados</a>
-                    <a class="dropdown-item" href="iniciar.php">Cerrar seccion</a>
-                    <a class="dropdown-item" href="more.php">Saber Más</a>
+                    <a class="dropdown-item" href="<?=$SalaQ?>">Sala de Quices</a>
+                    <a class="dropdown-item" href="<?=$Reali?>" >Realizados</a>
+                    <a class="dropdown-item" href="cerrar.php">Cerrar seccion</a>
+                    <a class="dropdown-item" href="<?=$more?>">Saber Más</a>
                 </div>
               </li>
             </ul>
+          <form class="form-inline my-2 my-lg-0" method="post" action="<?=$search?>">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          </form>
           </div>
         </div>
       </nav>
@@ -48,7 +68,7 @@
                         <div class="card-body p-5">
                             <h5 class="card-title">Inicia tu primer Quiz</h5>
                             <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso</p>
-                            <a href="exam1.php" class="btn btn-primary">iniciar ahora</a>
+                            <a href="<?=$exam1?>" class="btn btn-primary">iniciar ahora</a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +80,7 @@
                         <div class="card-body p-5">
                             <h5 class="card-title">Inicia tu primer Quiz</h5>
                             <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso</p>
-                            <a href="exam1.php" class="btn btn-primary">iniciar ahora</a>
+                            <a href="<?=$exam1?>" class="btn btn-primary">iniciar ahora</a>
                         </div>
                     </div>
                 </div>
@@ -69,7 +89,7 @@
                         <div class="card-body p-5">
                             <h5 class="card-title">Inicia tu primer Quiz</h5>
                             <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso</p>
-                            <a href="exam1.php" class="btn btn-primary">iniciar ahora</a>
+                            <a href="<?=$exam1?>" class="btn btn-primary">iniciar ahora</a>
                         </div>
                     </div>
                 </div>
@@ -137,7 +157,7 @@
         </div>
         <script>
             $('#myCarousel').carousel({
-              interval: 5000
+              interval: 3000
             })
         </script>
         <footer id="sticky-footer" class="py-4 bg-dark text-white-50">

@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if(isset($_SESSION['useryey'])){
+    if($_SESSION['useryey'] != ""){
+      $id = md5($_SESSION['useryey']);
+      header('location: indexlog.php?id='.$id);
+    }
+  }
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -44,7 +53,7 @@
   </div>
   <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
     <div class="container">
-      <small class="small1">Copyright &copy; ¡Yeah English Yeah! v.0.0.1</small>
+      <small class="small1">Copyright &copy; ¡Yeah English Yeah! v.0.1</small>
       <small class="small2">INEM - MEDELLÍN</small>
     </div>
   </footer>

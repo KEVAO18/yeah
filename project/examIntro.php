@@ -1,3 +1,20 @@
+<?php
+session_start();
+$id = $_GET['id'];
+$wall = 'indexlog.php?id='.$id;
+$profil = 'perfil.php?id='.$id;
+$SalaQ = 'salaQ.php?id='.$id;
+$Reali = 'regexam.php?id='.$id;
+$more = 'more.php?id='.$id;
+$ExamI = 'examIntro.php?id='.$id;
+$exam1 = 'exam1.php?id='.$id;
+$search = 'search.php?id='.$id;
+
+if ($_SESSION['useryey'] == "" || $id == "") {
+    header('location: Error404.php');
+}
+    
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,28 +33,7 @@
   </head>
   <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="indexlog.php"><img class="favicon" src="multimedia/favicon.png">  ¡Yeah English Yeah! - Start</a>
-        <div class="container">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menú</a>
-                <div class="dropdown-menu dropdown-menu-right animate slideIn" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="indexlog.php">Mi Muro</a>
-                    <a class="dropdown-item" href="perfil.php">Perfil</a>
-                    <hr>
-                    <a class="dropdown-item" href="salaQ.php">Sala de Quices</a>
-                    <a class="dropdown-item" href="regexam.php">Realizados</a>
-                    <a class="dropdown-item" href="iniciar.php">Cerrar seccion</a>
-                    <a class="dropdown-item" href="more.php">Saber Más</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <a class="navbar-brand" href="<?=$wall?>"><img class="favicon" src="multimedia/favicon.png">  ¡Yeah English Yeah! - Start</a>
       </nav>
       
       <div class="container">

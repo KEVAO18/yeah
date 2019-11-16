@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  if(isset($_SESSION['useryey'])){
+    if($_SESSION['useryey'] != ""){
+      $id = md5($_SESSION['useryey']);
+      header('location: more.php?id='.$id);
+    }
+  }
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -59,23 +68,13 @@
                         <h4 class="font-weight-light">
                             <ul>
                                 <li>
-                                    Kevin Andrés Orrego Martínez
-                                </li>
-                                <li>
-                                    Jeffrey Alvarez Rodas<br>
-                                </li>
-                                <li>
-                                    Saul Enrique Salgado Uribe
-                                </li>
-                                <li>
-                                    Juan Esteban rios Garces
+                                    <a href="https://kevaosportafolio.000webhostapp.com/index.html" style="color: #545454; text-decoration: none;" target="_blak">Kevin Andrés Orrego Martínez</a>
                                 </li>
                             </ul>
                         </h4>
                     </il>
                 </ol>
             </div>
-            <a class="lead mb-0" href="https://github.com/KEVAO18/YeahEnglishYeah" target="_blank"><img src="multimedia/github.png"></a>
           </div>
         </div>
       </div>

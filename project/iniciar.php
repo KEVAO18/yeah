@@ -1,3 +1,16 @@
+<?php
+  session_start();
+  $error = "";
+  if(isset($_SESSION['useryey'])){
+    if($_SESSION['useryey'] != ""){
+      $id = md5($_SESSION['useryey']);
+      header('location: indexlog.php?id='.$id);
+    }
+  }
+  if (isset($_GET['error'])) {
+    $error = $_GET['error'];
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,14 +57,14 @@
         <div class="card card-signin my-5">
           <div class="card-body">
             <h5 class="card-title text-center">Iniciar Seccion</h5>
-            <form class="form-signin" method="post" name="inicio">
+            <form class="form-signin" method="post" name="inicio" action="init.php" enctype="multipart/form-data">
               <div class="form-label-group">
-                <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="user1" required autofocus>
+                <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="userInput" required autofocus>
                 <label for="inputEmail">Usuario</label>
               </div>
 
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" name="pass1" placeholder="Password" required>
+                <input type="password" id="inputPassword" class="form-control" name="pass" placeholder="Password" required>
                 <label for="inputPassword">Contraseña</label>
               </div>
 
@@ -59,7 +72,16 @@
                 <input type="checkbox" class="custom-control-input" id="customCheck1">
                 <label class="custom-control-label" for="customCheck1">Recordar Contraseña</label>
               </div>
-              <button class="CompletarIni btn btn-lg btn-primary btn-block text-uppercase" onclick="location.href='indexlog.php'" type="button">Iniciar Seccion</button>
+              <?php
+                if ($error == "error") {
+              ?>
+              <div class="alert alert-danger" role="alert">
+                contraseña incorrecta o usuario son incorrecto
+              </div>
+              <?php
+                }
+              ?>
+              <button class="completarReg btn btn-lg btn-primary btn-block text-uppercase" name="enviar" type="submit">Iniciar Seccion</button>
               <p class="d-block text-center mt-2 small">Aun no tienes una cuenta?<a class="d-block text-center mt-2 small" href="Registro.php">Registrate</a></p>
               <hr class="my-4">
               <button disabled class="btn btn-lg btn-google btn-block text-uppercase" type="submit">Registrar con Google (Desactivado)</button>
