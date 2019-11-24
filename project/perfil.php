@@ -13,7 +13,49 @@ $search = 'search.php?id='.$id;
 if ($_SESSION['useryey'] == "" || $id == "") {
     header('location: Error404.php');
 }
-    
+
+$dir = "multimedia";
+$foto = "multimedia/".$id.".png";
+opendir($dir);
+if (isset($_POST['send'])) {
+  $destino = $foto;
+  copy($_FILES['foto']['tmp_name'], $foto);
+  $foto = "multimedia/".$id.".png";
+}
+
+include 'conexion.php';
+
+$user = $_SESSION['useryey'];
+
+$sql = "SELECT * FROM datos2 WHERE usuario = '$user'";
+
+$resultado = $conexion->query($sql) or die("fallo al obtener");
+
+if(isset($_POST['send2'])){
+  $edad = $_POST['age'];
+  $pais = $_POST['Nacion'];
+  $desc = $_POST['descr'];
+  $cambio = "UPDATE `datos2` SET `Edad`='$edad', `Nacionalidad`='$pais', `Descrip`='$desc' WHERE usuario = '$user';";
+  $cambiar = $conexion->query($cambio);
+  header("location: ".$profil);
+}
+
+while ($row = $resultado->fetch_assoc()){
+
+  $email = $row['email'];
+  $edad = $row['Edad'];
+  $pais = $row['Nacionalidad'];
+  $desc = $row['Descrip'];
+  $intro = $row['intro'];
+  $notaInt = $row['NotaIntro'];
+  if ($row['NumExams'] >= 1) {
+    $numEx = ($row['NumExams'] * 100) / $row['totalExams'];
+  }else{
+    $numEx = $row['NumExams'];
+  }
+}
+
+  
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,8 +102,195 @@ if ($_SESSION['useryey'] == "" || $id == "") {
           </div>
         </div>
       </nav>
-      
-        <footer id="sticky-footer" class="py-4 bg-dark text-white-50" style="position: fixed; bottom: 0;">
+      <header>
+        <style type="text/css">
+          header{
+            width: 100%;
+            height: 400px;
+            background-size: 100%, 100%;
+            background-image: url(multimedia/Portada.png);
+            background-position: center;
+          }
+
+          .foto{
+            width: 200px;
+            height: 200px;
+            opacity: .9;
+            color: #0A4237;
+            border-radius: 50%;
+            border: 1px solid;
+            transition: 1s;
+          }
+          .foto:hover{
+            transition: 1s;
+            opacity: 1;
+            cursor: pointer;
+          }
+
+        </style>
+        <br>
+        <br>
+        <div class="text-center">
+          <a data-toggle="modal" class="" data-target="#fotoModal"><img class="foto mx-auto" src="<?php echo $foto; ?>"></a>
+        </div>
+      </header>
+      <!----------------modal-------------->
+      <div class="modal fade" id="fotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <center><form method="post" action="#" enctype="multipart/form-data">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">cambiar foto de perfil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+              <!------------------------cuerpo del modal---------------------->
+                <br>
+                <img style="width: 200px; height: 200px; opacity: 1; border: 0px solid;" src="<?php echo $foto; ?>">
+                <br>
+                <br>
+                <br>
+                <input class="" type="file" name="foto" value="">
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" name="send" value="Save changes">
+              </div>
+            </form></center>
+          </div>
+        </div>
+      </div>
+
+      <div class="container row mx-auto" style="">
+        <div class="col-xs-12 text-center col-lg-12 py-5">
+          <div class="card border-0 shadow">
+            <div class="card-body p-3">
+
+              <div class="container row mx-auto">
+                  <div class="col-xs-12 text-center col-lg-5">
+                    <div class="card border-0 shadow">
+                      <div class="card-body p-5">
+                        <h2 class="card-title"><a style="opacity: .7; color: #0A4237; text-decoration: none;" href="<?=$wall?>"><?php echo $_SESSION['useryey'];?></a></h2>
+                        <p class="card-text"><?php echo $desc; ?></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 text-center col-lg-7">
+                <div class="card card-info">
+                    <div class="card-header">
+                        Datos
+                    </div>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Email: <?php echo $email; ?></li>
+                        <li class="list-group-item">Edad: <?php echo $edad; ?></li>
+                        <li class="list-group-item">Nacionalidad: <?php echo $pais; ?></li>
+                    </ul>
+                    <div class="card-footer">
+                        <a data-toggle="modal" class="btn btn-outline-secondary btn-sm" href="" data-target="#Datos">Editar</a>
+                    </div>
+
+                  <div class="modal fade" id="Datos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <form method="post" action="#" enctype="multipart/form-data">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">cambiar foto de perfil</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                          <!------------------------cuerpo del modal---------------------->
+                          <div class="form-label-group">
+                            <input type="text" id="descr" class="form-control" placeholder="Email address" name="descr" required autofocus maxlength="300">
+                            <label for="descr">Descripcion</label>
+                          </div>
+                          <div class="form-label-group">
+                            <input type="number" id="agePartes" class="form-control" placeholder="Email address" name="age" required min="14">
+                            <label for="agePartes">Edad</label>
+                          </div>
+                          <div class="form-label-group">
+                            <input type="text" id="inputEmail" class="form-control" placeholder="Email address" name="Nacion" required>
+                            <label for="inputEmail">Nacionalidad</label>
+                          </div>
+
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input type="submit" class="btn btn-primary" name="send2">
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+                  </div>
+                  <div class="col-xs-12 text-center col-lg-12 py-5">
+                    <div class="card border-0 shadow ">
+                      <div class="card-body p-5">
+                        <h5 class="card-title">Quices realizados / Quices Exitosos</h5>
+                        <div class="progress progress-striped active">
+                        <div class="progress-bar" role="progressbar"
+                             aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
+                             style="width: <?php echo $numEx; ?>%">
+                          <span class="sr-only"><?php echo $numEx; ?>% completado</span>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <?php
+
+                  if ($intro == 0) {
+                    ?>
+                    <div class="col-xs-12 text-center col-lg-8 py-3">
+                    <div class="card border-0 shadow">
+                      <div class="card-body p-5">
+                        <h5 class="card-title">Inicia tu primer Quiz</h5>
+                        <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso
+                        </p>
+                        <a href="<?=$exam1?>" class="btn btn-primary">iniciar ahora</a>
+                      </div>
+                    </div>
+                  </div>
+                    <?php
+                  }else{
+                    ?>
+                  <div class="col-xs-12 text-center col-lg-8 py-3">
+                    <div class="card border-0 shadow">
+                      <div class="card-body p-5">
+                        <h5 class="card-title">Inicia tu primer Quiz</h5>
+                        <p class="card-text">Felicidades Ya has realizado tu examen de introduccion y tu nota a sido</p>
+                        <h5 class="card-text"><?php echo $notaInt;?> / 10</h5>
+                      </div>
+                    </div>
+                  </div>
+                    <?php
+                  }
+                  ?>
+                  <div class="col-xs-12 text-center col-lg-4 py-3">
+                    <div class="card border-0 shadow">
+                      <div class="card-body p-5">
+                        <h5 class="card-title">Inicia tu primer Quiz</h5>
+                        <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso
+                        </p>
+                        <a href="<?=$exam1?>" class="btn btn-primary">iniciar ahora</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <footer id="sticky-footer" class="py-4 bg-dark text-white-50" style="position: fixed; bottom: 0; left: 0; right: 0;">
           <div class="container">
             <small class="small1">Copyright &copy; ¡Yeah English Yeah!</small>
             <small class="small2">INEM - MEDELLÍN</small>
@@ -69,79 +298,3 @@ if ($_SESSION['useryey'] == "" || $id == "") {
         </footer>
     </body>
 </html>
-
-<!--
-          <img class="card-img-top" src="multimedia/Portada.png" style="width:100%; height:500px; position:relative; top:0px; left:0%; z-index:1;" alt="Card image cap">>
-      <div class="container row mx-auto">
-        <div class="card col-md-4 py-3 border-0 text-center" style="position:relative; top:-400px; left:33%; z-index:3;">
-          <img class="card-img-top" src="multimedia/DefaultProfile.png" style="border-radius:100%;" alt="Card image cap">
-          <div class="card-body">
-            <h2 class="card-title"><?#php echo $_SESSION['useryey'];?></h2>
-          </div>
-        </div>
-        </div>
-        <div class="container row mx-auto" style="position:relative; top:-500px; z-index:2;">
-              <div class="col-xs-12 text-center col-lg-12 py-5">
-                <div class="card border-0 shadow">
-                  <div class="card-body p-5">
-                    <div class="container row mx-auto">
-                        <div class="col-xs-12 text-center col-lg-5">
-                          <div class="card border-0 shadow">
-                            <div class="card-body p-5">
-                              <h5 class="card-title">Inicia tu primer Quiz</h5>
-                              <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso
-                              </p>
-                              <a href="examIntro.php" class="btn btn-primary">iniciar ahora</a>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 text-center col-lg-7">
-                          <div class="card border-0 shadow">
-                            <div class="card-body p-5">
-                              <h5 class="card-title">Inicia tu primer Quiz</h5>
-                              <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso
-                              </p>
-                              <a href="examIntro.php" class="btn btn-primary">iniciar ahora</a>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 text-center col-lg-12 py-5">
-                          <div class="card border-0 shadow ">
-                            <div class="card-body p-5">
-                              <h5 class="card-title">Quices realizados / Quices Exitosos</h5>
-                              <div class="progress progress-striped active">
-                              <div class="progress-bar" role="progressbar"
-                                   aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"
-                                   style="width: 45%">
-                                <span class="sr-only">45% completado</span>
-                              </div>
-                            </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 text-center col-lg-8 py-3">
-                          <div class="card border-0 shadow">
-                            <div class="card-body p-5">
-                              <h5 class="card-title">Inicia tu primer Quiz</h5>
-                              <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso
-                              </p>
-                              <a href="examIntro.php" class="btn btn-primary">iniciar ahora</a>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xs-12 text-center col-lg-4 py-3">
-                          <div class="card border-0 shadow">
-                            <div class="card-body p-5">
-                              <h5 class="card-title">Inicia tu primer Quiz</h5>
-                              <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso
-                              </p>
-                              <a href="examIntro.php" class="btn btn-primary">iniciar ahora</a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              -->

@@ -30,6 +30,11 @@ if ($_SESSION['useryey'] == "" || $id == "") {
     <meta charset="utf-8">
     <meta name="viewport" content="width-device-width, user-scalable=no, initial-scale=1.0, maximum-scale= 1.0, minimum-scale=1.0 ">
     <link rel="icon" href="multimedia/favicon.png">
+    <script>
+        $('#myCarousel').carousel({
+          interval: 3000
+        })
+    </script>
   </head>
   <body>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -60,20 +65,28 @@ if ($_SESSION['useryey'] == "" || $id == "") {
           </div>
         </div>
       </nav>
-          <div>
-              <div class="container row mx-auto">
-                  <div class="col-md-1"></div>
-                <div class="col-xs-12 text-center col-lg-10 py-5">
-                    <div class="card border-0 shadow my-5">
-                        <div class="card-body p-5">
-                            <h5 class="card-title">Inicia tu primer Quiz</h5>
-                            <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso</p>
-                            <a href="<?=$exam1?>" class="btn btn-primary">iniciar ahora</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-1"></div>
-            </div>
+
+<!----------------------------------------------------------aqui inician los examenes------------------------------------------------------------------------->
+            
+<?php
+
+    include 'conexion.php';
+
+    $user = $_SESSION['useryey'];
+
+    $sql = "SELECT * FROM datos2 WHERE usuario = '$user'";
+
+    # ----------------------  NumExams ------------------------------
+
+    $resultado = $conexion->query($sql) or die("fallo al obtener");
+
+    while ($row = $resultado->fetch_assoc()){
+        if ($row['usuario'] == $user && $row['NumExams'] >= 1) {
+
+#---------------------------------------------------------------------------primer si------------------------------------------------------------------
+            
+?>
+
             <div class="container row mx-auto">
                 <div class="col-xs-12 col-lg-8 py-5">
                     <div class="card border-0 shadow my-5">
@@ -94,7 +107,10 @@ if ($_SESSION['useryey'] == "" || $id == "") {
                     </div>
                 </div>
             </div>
-            <div class="container text-center my-3">
+
+
+
+         <div class="container text-center my-3">
             <div class="row mx-auto my-3">
                 <div id="myCarousel" class="carousel slide w-100" data-ride="carousel">
                     <div class="carousel-inner" role="listbox">
@@ -154,13 +170,34 @@ if ($_SESSION['useryey'] == "" || $id == "") {
                 </div>
             </div>
           </div>
-        </div>
-        <script>
-            $('#myCarousel').carousel({
-              interval: 3000
-            })
-        </script>
-        <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+
+            <?php
+
+         }else{
+            ?>
+            <div class="container row mx-auto">
+                <div class="col-md-1"></div>
+                <div class="col-xs-12 text-center col-lg-10 py-5">
+                    <div class="card border-0 shadow my-5">
+                        <div class="card-body p-5">
+                            <h5 class="card-title">Inicia tu primer Quiz</h5>
+                            <p class="card-text">para darte la bienvenida te queremos ofrecer nuestro quiz de inicio para darte tu nivel de ingles al iniciar para que al terminar verifiques tu  proceso</p>
+                            <a href="<?=$exam1?>" class="btn btn-primary">iniciar ahora</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <?php
+
+        }
+    }
+
+?>
+
+<!------------------------------------------------------contenedor------------------------------------------------------------------------------------------>
+
+        <footer id="sticky-footer" class="py-4 bg-dark text-white-50" style="position: fixed; right: 0; left: 0; bottom: 0;">
                 <div class="container">
                     <small class="small1">Copyright &copy; ¡Yeah English Yeah!</small>
                     <small class="small2">INEM - MEDELLÍN</small>

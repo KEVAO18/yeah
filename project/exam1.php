@@ -9,6 +9,7 @@ $more = 'more.php?id='.$id;
 $ExamI = 'examIntro.php?id='.$id;
 $exam1 = 'exam1.php?id='.$id;
 $search = 'search.php?id='.$id;
+$correcion = 'exams/CorectIntro.php?id='.$id;
 
 if ($_SESSION['useryey'] == "" || $id == "") {
     header('location: Error404.php');
@@ -42,7 +43,7 @@ if ($_SESSION['useryey'] == "" || $id == "") {
             <h1 class="font-weight-light">welcome quiz</h1>
             <h3 class="font-weight-light">This is an introductory and tutorial exam to teach our performance, but it will also serve to indicate the level of English in which you are at the time of your first entry.</h3><br>
             <div style="height: auto">
-              <form method="post" name="quizIntro">
+              <form method="post" name="quizIntro" action="<?=$correcion?>">
                 <!-----------------------------------------------pregunta 1--------------------------------------------->  
                 <div class="list-group pregunta1">
                 <a href="#" class="list-group-item list-group-item-action active" disabled>
@@ -1123,7 +1124,7 @@ if ($_SESSION['useryey'] == "" || $id == "") {
              <!-------------------------------------------fin pregunta 25-------------------------------------------->
              <br>
              <center>
-                 <button class="btn-danger shadow btn-lg btn-block" style="border-radius:5px">Complete</button>
+                 <input type="submit" class="btn-success shadow btn-lg btn-block" name="complete" value="complete">
              </center>
               </form>
               <script>

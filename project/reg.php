@@ -7,6 +7,8 @@
   $pass1 = $_POST['pass1'];
   $pass2 = $_POST['pass2'];
   $TyC = $_POST['TyC'];
+  $NumExams = 0;
+  $intro = 0;
 
   if ($pass1 == $pass2) {
 
@@ -22,14 +24,14 @@
       $_SESSION['emailyey'] = $email;
       $_SESSION['TCyey'] = $TyC;
 
-      $sql = "INSERT INTO `datos2` (`usuario`, `email`, `pass`, `TC`) VALUES ('$user','$email','$passmd5','$TyC')";
+      $sql = "INSERT INTO `datos2` (`usuario`, `email`, `pass`, `TC`, `NumExams`, `intro`) VALUES ('$user','$email','$passmd5','$TyC', '$NumExams', '$intro')";
 
       $resultado = $conexion->query($sql);
 
-      $dir = "assets/img/";
+      $dir = "multimedia/";
       opendir($dir);
-        $destino1 = $dir."predefinePhoto.png";
-        $destino2 = $dir.$usermd5.".png";
+      $destino1 = $dir."predefinePhoto.png";
+      $destino2 = $dir.$usermd5.".png";
       copy($destino1,$destino2);
 
       header('location: indexlog.php?id='.$usermd5);

@@ -16,8 +16,6 @@ session_start();
     if ($row['usuario']==$user && $row['pass']==$passmd5){
       $_SESSION['contyey'] = 1;
       $_SESSION['useryey'] = $row['usuario'];
-      
-      echo $_SESSION['useryey']." cont: ".$_SESSION['contyey'];
 
       header('location: indexlog.php?id='.$usermd5);
       break;
@@ -25,7 +23,6 @@ session_start();
   }
 
   if ($_SESSION['contyey'] == 0) {
-      echo "error";
       header('location: iniciar.php?error=error');
       session_destroy();
     }

@@ -1,5 +1,7 @@
 <?php
   session_start();
+  session_unset();
+  session_destroy();
   $error = "";
   if(isset($_SESSION['useryey'])){
     if($_SESSION['useryey'] != ""){
@@ -92,7 +94,9 @@
       </div>
     </div>
   </div>
-  <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+  <br>
+  <br>
+  <footer id="sticky-footer" class="py-4 bg-dark text-white-50" style="position: fixed; right: 0; left: 0; bottom: 0;">
     <div class="container">
       <small class="small1">Copyright &copy; ¡Yeah English Yeah!</small>
       <small class="small2">INEM - MEDELLÍN</small>

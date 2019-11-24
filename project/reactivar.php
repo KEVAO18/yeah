@@ -2,7 +2,7 @@
   session_start();
   include ("conexion.php");
 
-  if (isset($_POST['pass1'])) {
+  if (isset($_POST['enviar'])) {
     $id = $_GET['id'];
     $email = $_GET['ec'];
 
