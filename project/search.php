@@ -86,18 +86,39 @@ if ($_SESSION['useryey'] == "" || $id == "") {
 							$i = 0;
 							while ($row=$resultado->fetch_assoc()){
 								$i = $i+1;
+                $usermd5 = md5($row['usuario']);
 					  ?>
 					  <tbody>
 					    <tr>
 					      <th scope="row"><?php echo $i;?></th>
-					      <td>aqi va la foto</td>
+					      <td><img style="width: 45px; height: 50px; opacity: .8; border-radius: 50%;" src="multimedia/<?=$usermd5?>.png"></td>
 					      <td><?php echo $row['usuario'];?></td>
 					      <td><?php echo $row['email'];?></td>
 					    </tr>
 					  </tbody>
 						<?php
 							}
-						}
+						}else{
+              include 'conexion.php';
+
+              $sql = "SELECT * FROM datos2;";
+
+              $resultado = $conexion->query($sql);
+              $i = 0;
+              while ($row=$resultado->fetch_assoc()){
+                $i = $i+1;
+            ?>
+            <tbody>
+              <tr>
+                <th scope="row"><?php echo $i;?></th>
+                <td><img style="width: 45px; height: 50px; opacity: .8; border-radius: 50%;" src="multimedia/<?=$usermd5?>.png"></td>
+                <td><?php echo $row['usuario'];?></td>
+                <td><?php echo $row['email'];?></td>
+              </tr>
+            </tbody>
+            <?php
+              }
+            }
 						?>
 					</table>
       	</div>

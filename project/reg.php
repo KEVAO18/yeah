@@ -9,6 +9,7 @@
   $TyC = $_POST['TyC'];
   $NumExams = 0;
   $intro = 0;
+  $Exams = 1;
 
   if ($pass1 == $pass2) {
 
@@ -24,7 +25,7 @@
       $_SESSION['emailyey'] = $email;
       $_SESSION['TCyey'] = $TyC;
 
-      $sql = "INSERT INTO `datos2` (`usuario`, `email`, `pass`, `TC`, `NumExams`, `intro`) VALUES ('$user','$email','$passmd5','$TyC', '$NumExams', '$intro')";
+      $sql = "INSERT INTO `datos2` (`usuario`, `email`, `pass`, `TC`, `NumExams`, `intro`, `totalExams`) VALUES ('$user','$email','$passmd5','$TyC', '$NumExams', '$intro', '$Exams')";
 
       $resultado = $conexion->query($sql);
 

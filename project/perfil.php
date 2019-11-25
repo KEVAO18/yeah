@@ -107,7 +107,7 @@ while ($row = $resultado->fetch_assoc()){
           header{
             width: 100%;
             height: 400px;
-            background-size: 100%, 100%;
+            background-size: 100%;
             background-image: url(multimedia/Portada.png);
             background-position: center;
           }
@@ -125,6 +125,16 @@ while ($row = $resultado->fetch_assoc()){
             transition: 1s;
             opacity: 1;
             cursor: pointer;
+          }
+
+          @media (max-width: 600px){
+            header{
+              width: 100%;
+              height: 300px;
+              background-size: 100%;
+              background-image: url(multimedia/Portada.png);
+              background-position: center;
+            }
           }
 
         </style>
