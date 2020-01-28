@@ -25,7 +25,7 @@
       $_SESSION['emailyey'] = $email;
       $_SESSION['TCyey'] = $TyC;
 
-      $sql = "INSERT INTO `datos2` (`usuario`, `email`, `pass`, `TC`, `NumExams`, `intro`, `totalExams`) VALUES ('$user','$email','$passmd5','$TyC', '$NumExams', '$intro', '$Exams')";
+      $sql = "INSERT INTO `datos2` (`usuario`, `Edad`, `Nacionalidad`, `Descrip`, `email`, `pass`, `TC`, `NumExams`, `CaliMax`, `CaliMin`, `NotaIntro`, `intro`, `totalExams`) VALUES ('$user',NULL,NULL,NULL,'$email','$passmd5','$TyC', '$NumExams', 0, 0, 0, '$intro', '$Exams')";
 
       $resultado = $conexion->query($sql);
 
